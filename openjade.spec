@@ -1,6 +1,6 @@
 Name:           openjade
 Version:        1.3.2
-Release:        60
+Release:        61
 Summary:        A implementation of DSSSL
 License:        DMIT
 URL:            http://openjade.sourceforge.net/
@@ -16,7 +16,7 @@ Patch4:         openjade-1.3.2-gcc46.patch
 Patch5:         openjade-getoptperl.patch
 
 Provides:       jade = %{version}-%{release}
-BuildRequires:  gcc-c++ opensp-devel perl-interpreter
+BuildRequires:  gcc-c++ opensp-devel perl-interpreter chrpath
 Requires:       sgml-common
 
 %description
@@ -62,6 +62,10 @@ rm -f *.so
 rm -f *.la
 popd
 
+chrpath -d %{buildroot}/%{_libdir}/libospgrove.so.0.0.1
+chrpath -d %{buildroot}/%{_libdir}/libostyle.so.0.0.1
+chrpath -d %{buildroot}/%{_bindir}/openjade
+
 %post
 /sbin/ldconfig
 /usr/bin/install-catalog --add /etc/sgml/%{name}-%{version}-%{release}.soc \
@@ -87,5 +91,8 @@ popd
 %{_mandir}/man1/*
 
 %changelog
+* Tue Aug 23 2022 wulei <wulei80@h-partners.com> - 1.3.2-61
+- Remove rpath
+
 * Tue Dec 3 2019 openEuler Buildteam <buildteam@openeuler.org> - 1.3.2-60
 - Package init
