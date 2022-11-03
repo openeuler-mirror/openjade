@@ -1,6 +1,6 @@
 Name:           openjade
 Version:        1.3.2
-Release:        60
+Release:        61
 Summary:        A implementation of DSSSL
 License:        DMIT
 URL:            http://openjade.sourceforge.net/
@@ -14,6 +14,7 @@ Patch2:         openjade-deplibs.patch
 Patch3:         openjade-nola.patch
 Patch4:         openjade-1.3.2-gcc46.patch
 Patch5:         openjade-getoptperl.patch
+Patch6:         openjade-1.3.2-sw.patch
 
 Provides:       jade = %{version}-%{release}
 BuildRequires:  gcc-c++ opensp-devel perl-interpreter
@@ -87,5 +88,8 @@ popd
 %{_mandir}/man1/*
 
 %changelog
+* Tue Oct 25 2022 wuzx<wuzx1226@qq.com> - 1.3.2-61
+- Add sw64 architecture
+
 * Tue Dec 3 2019 openEuler Buildteam <buildteam@openeuler.org> - 1.3.2-60
 - Package init
