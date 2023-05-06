@@ -1,6 +1,6 @@
 Name:           openjade
 Version:        1.3.2
-Release:        61
+Release:        62
 Summary:        A implementation of DSSSL
 License:        DMIT
 URL:            http://openjade.sourceforge.net/
@@ -31,7 +31,11 @@ distributed under the same license as Jade.
 
 %build
 cp -p %{SOURCE1} %{SOURCE2} config/
-export CXXFLAGS="%optflags -fno-lifetime-dse"
+%if "%toolchain" == "clang"
+	export CXXFLAGS="%optflags -std=c++03"
+%else 
+	export CXXFLAGS="%optflags -fno-lifetime-dse"
+%endif
 %configure --disable-static --datadir=%{_datadir}/sgml/%{name}-%{version} --enable-splibdir=%{_libdir}
 %make_build
 
@@ -91,6 +95,9 @@ chrpath -d %{buildroot}/%{_bindir}/openjade
 %{_mandir}/man1/*
 
 %changelog
+* Sat May 06 2023 yoo <sunyuechi@iscas.ac.cn> - 1.3.2-62
+- fix clang build error
+
 * Tue Aug 23 2022 wulei <wulei80@h-partners.com> - 1.3.2-61
 - Remove rpath
 
